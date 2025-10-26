@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IEEE 754 Converter</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <!-- Theme Switcher -->
+            <div class="theme-switcher">
+                <button class="theme-btn" onclick="changeTheme('purple')" title="Dim Purple Theme">
+                    <span class="theme-circle purple-theme"></span>
+                </button>
+                <button class="theme-btn" onclick="changeTheme('pink')" title="Baby Pink Theme">
+                    <span class="theme-circle pink-theme"></span>
+                </button>
+                <button class="theme-btn" onclick="changeTheme('blue')" title="Ocean Blue Theme">
+                    <span class="theme-circle blue-theme"></span>
+                </button>
+                <button class="theme-btn" onclick="changeTheme('dark')" title="Dark Mode">
+                    <span class="theme-circle dark-theme"></span>
+                </button>
+            </div>
+            
+            <h1 class="hero-title">IEEE 754 Converter</h1>
+            <p class="hero-subtitle">Convert Decimal Numbers to IEEE 754 Floating-Point Format and Vice Versa</p>
+            <button class="hero-btn" onclick="scrollToConverter()">
+                Start Converting →
+            </button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <h2 class="section-title">About IEEE 754 Standard</h2>
+            <div class="cards-grid">
+                <div class="info-card">
+                    <div class="card-icon">📊</div>
+                    <h3 class="card-title">What is IEEE 754?</h3>
+                    <p class="card-text">IEEE 754 is the technical standard for floating-point arithmetic established in 1985. It defines formats for representing floating-point numbers and rules for arithmetic operations, ensuring consistent behavior across different computing systems.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">1️⃣2️⃣3️⃣4️⃣</div>
+                    <h3 class="card-title">32-bit Format</h3>
+                    <p class="card-text">Single precision uses <strong>1 sign bit</strong>, <strong>8 exponent bits</strong> (bias 127), and <strong>23 mantissa bits</strong>. It can represent numbers from ±1.4×10⁻⁴⁵ to ±3.4×10³⁸ with ~7 decimal digits of precision.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-icon">💾</div>
+                    <h3 class="card-title">64-bit Format</h3>
+                    <p class="card-text">Double precision uses <strong>1 sign bit</strong>, <strong>11 exponent bits</strong> (bias 1023), and <strong>52 mantissa bits</strong>. It provides much higher precision (~16 decimal digits) and range than 32-bit format.</p>
+                </div>
+            </div>
+            <div class="learn-more">
+                <p>Want to learn more about IEEE 754?</p>
+                <a href="https://en.wikipedia.org/wiki/IEEE_754" target="_blank" class="learn-link">Read Documentation →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Converter Section -->
+    <section id="converter" class="converter-section">
+        <div class="container">
+            <h2 class="section-title">Interactive Converter</h2>
+            
+            <!-- Quick Examples -->
+            <div class="examples-bar">
+                <span class="examples-label">Quick Examples:</span>
+                <button class="example-pill" onclick="setExample('0.1')">💡 0.1</button>
+                <button class="example-pill" onclick="setExample('-12.375')">➖ -12.375</button>
+                <button class="example-pill" onclick="setExample('3.14159')">π 3.14159...</button>
+                <button class="example-pill" onclick="setExample('123.456')">🔢 123.456</button>
+            </div>
+
+            <!-- Converter Grid -->
+            <div class="converter-grid">
+                <!-- Decimal to IEEE 754 -->
+                <div class="converter-card">
+                    <div class="card-header">
+                        <h3 class="card-header-title">Decimal → IEEE 754</h3>
+                        <div class="swap-icon">⇆</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Decimal Number</label>
+                        <input type="text" id="decimalInput" class="input-field" placeholder="10" value="10">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Precision</label>
+                        <select id="precisionSelect" class="select-field">
+                            <option value="32">32-bit (Single Precision)</option>
+                            <option value="64">64-bit (Double Precision)</option>
+                        </select>
+                    </div>
+
+                    <div class="output-section">
+                        <div class="output-header">
+                            <span class="output-label">IEEE 754 BINARY REPRESENTATION</span>
+                            <button class="copy-btn" onclick="copyBinary()">Copy</button>
+                        </div>
+                        <div id="binaryOutput" class="binary-output">01000001001000000000000000000000</div>
+                    </div>
+
+                    <div class="components-section">
+                        <div class="component sign-component">
+                            <span class="component-label">Sign Bit</span>
+                            <div id="signBit" class="component-value">0</div>
+                        </div>
+                        <div class="component exponent-component">
+                            <span class="component-label">Exponent</span>
+                            <div id="exponentBits" class="component-value">10000010</div>
+                        </div>
+                        <div class="component mantissa-component">
+                            <span class="component-label">Mantissa</span>
+                            <div id="mantissaBits" class="component-value">01000000000000000000000</div>
+                        </div>
+                    </div>
+
+                    <div class="step-by-step">
+                        <button class="step-toggle" onclick="toggleSteps('decSteps')">
+                            → Step-by-Step Conversion
+                        </button>
+                        <div id="decSteps" class="steps-content" style="display: none;">
+                            <div class="step-item">
+                                <strong>1. Sign Bit</strong>
+                                <code>Positive number → Sign bit = 0</code>
+                            </div>
+                            <div class="step-item">
+                                <strong>2. Integer Part to Binary</strong>
+                                <code>10 (decimal) = 1010 (binary)</code>
+                            </div>
+                            <div class="step-item">
+                                <strong>3. Fractional Part to Binary</strong>
+                                <code>0.0 (decimal) = 0.0 (binary)</code>
+                            </div>
+                            <div class="step-item">
+                                <strong>4. Normalize</strong>
+                                <code>1.010... × 2^3</code>
+                            </div>
+                            <div class="step-item">
+                                <strong>5. Biased Exponent</strong>
+                                <code>3 + 127 (bias) = 130 = 10000010 (binary)</code>
+                            </div>
+                            <div class="step-item">
+                                <strong>6. Mantissa (fraction)</strong>
+                                <code>01000000000000000000000 (23 bits)</code>
+                            </div>
+                            <div class="step-item">
+                                <strong>7. Final IEEE 754 Representation</strong>
+                                <code>0 | 10000010 | 01000000000000000000000</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- IEEE 754 to Decimal -->
+                <div class="converter-card">
+                    <div class="card-header">
+                        <h3 class="card-header-title">IEEE 754 → Decimal</h3>
+                        <div class="swap-icon">⇆</div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label class="input-label">Binary String</label>
+                        <input type="text" id="binaryInput" class="input-field mono" placeholder="01000000010000000000000000000000" value="01000001001000000000000000000000">
+                    </div>
+
+                    <div class="input-group">
+                        <label class="input-label">Precision</label>
+                        <select id="precisionSelectBin" class="select-field">
+                            <option value="32">32-bit (Single Precision)</option>
+                            <option value="64">64-bit (Double Precision)</option>
+                        </select>
+                    </div>
+
+                    <div class="output-section">
+                        <div class="output-header">
+                            <span class="output-label">DECIMAL VALUE</span>
+                            <button class="copy-btn" onclick="copyDecimal()">Copy</button>
+                        </div>
+                        <div id="decimalOutput" class="decimal-output">10</div>
+                    </div>
+
+                    <div class="components-section">
+                        <div class="component sign-component">
+                            <span class="component-label">Sign Bit</span>
+                            <div id="signBitDec" class="component-value small">0 (Positive)</div>
+                        </div>
+                        <div class="component exponent-component">
+                            <span class="component-label">Exponent</span>
+                            <div id="exponentBitsDec" class="component-value small">10000010 = 130 (Biased) → 3 (actual)</div>
+                        </div>
+                        <div class="component mantissa-component">
+                            <span class="component-label">Mantissa</span>
+                            <div id="mantissaBitsDec" class="component-value small">01000000000000000000000 → 1.25000000000</div>
+                        </div>
+                    </div>
+
+                    <div class="step-by-step">
+                        <button class="step-toggle" onclick="toggleSteps('binSteps')">
+                            → Calculation Steps
+                        </button>
+                        <div id="binSteps" class="steps-content" style="display: none;">
+                            <div class="step-item">
+                                <strong>1. Extract Sign Bit</strong>
+                                <code>0 → Positive</code>
+                            </div>
+                            <div class="step-item">
+                                <strong>2. Extract Exponent</strong>
+                                <code>10000010 (binary) = 130 (decimal)</code>
+                            </div>
+                            <div class="step-item">
+                                <strong>3. Calculate Actual Exponent</strong>
+                                <code>130 - 127 (bias) = 3</code>
+                            </div>
+                            <div class="step-item">
+                                <strong>4. Calculate Mantissa Value</strong>
+                                <code>1.01000000000000000000000 (binary) = 1.25000000000 (decimal)</code>
+                            </div>
+                            <div class="step-item">
+                                <strong>5. Calculate Final Value</strong>
+                                <code>1 × 1.25000000000 × 2^3 = 10</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2025 IEEE 754 Converter. Built with ❤️ for learning and education.</p>
+            <p class="footer-note">All conversions are performed client-side in your browser. No data is sent to any server.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
