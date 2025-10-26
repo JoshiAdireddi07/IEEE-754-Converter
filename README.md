@@ -7,7 +7,7 @@ An interactive web application that converts decimal numbers to IEEE 754 floatin
 ## 🚀 Preview
 
 <p align="center">
-  <img width="1440" height="900" alt="Screenshot1" src="https://github.com/user-attachments/assets/84df84b4-3786-4819-b711-d32f34c69591" />
+  <img width="1440" height="900" alt="Screenshot1" src="Screenshots/Screenshot1.png" />
   <br>
   <em>Home Page – Interactive IEEE 754 Converter</em>
 </p>
@@ -40,15 +40,13 @@ An interactive web application that converts decimal numbers to IEEE 754 floatin
 ## 📸 Additional Screenshots
 
 <p align="center">
-  <img width="1440" height="900" alt="Screenshot2" src="https://github.com/user-attachments/assets/84df84b4-3786-4819-b711-d32f34c69591" />
+  <img width="1440" height="900" alt="Screenshot2" src="Screenshots/Screenshot2.png" />
   <br>
-  <img width="1440" height="900" alt="Screenshot3" src="https://github.com/user-attachments/assets/84df84b4-3786-4819-b711-d32f34c69591" />
 </p>
-
-
-## 🚀 Preview
-<img width="1440" height="900" alt="Screenshot1" src="https://github.com/user-attachments/assets/84df84b4-3786-4819-b711-d32f34c69591" />
-
+<p align="center">
+  <img width="1440" height="900" alt="Screenshot3" src="Screenshots/Screenshot3.png" />
+  <br>
+</p>
 
 
 
